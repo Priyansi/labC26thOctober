@@ -1,0 +1,88 @@
+#include<stdio.h>
+struct student
+{
+    char na[50];
+    int rl,m[5];double total;
+    double p;
+}t,e[100];
+double percent(struct student q)
+{
+    double percent =q.total/5;
+    return percent;
+}
+void dispdetail(struct student s)
+{
+    printf("\nName = %s",s.na);
+    printf("\nRoll number = %d",s.rl);
+    for(int i=0;i<5;i++)
+    {
+        printf("\nMarks in Subject %d: %d",(i+1),s.m[i]);
+    }
+    printf("\nTotal marks = %lf",s.total);
+    printf("\nPercentage = %lf",s.p);
+}
+void givrange(int n)
+{
+    int l,h;
+    printf("\nEnter lower Range : ");
+    scanf("%d",&l);
+    printf("Enter Upper Range : ");
+    scanf("%d",&h);
+    for(int i =0;i<n;i++)
+    {
+        if(e[i].p>=l && e[i].p<=h)
+        dispdetail(e[i]);
+    }
+}
+void sortmarks(int n)
+{
+    for(int i=0;i<(n-1);i++)
+    {
+        for(int j=0;j<(n-1-i);j++)
+        {
+            if(e[j].p>e[j+1].p)
+            {
+                t=e[j];
+                e[j]=e[j+1];
+                e[j+1]=t;
+            }
+        }
+    }
+}
+void main()
+{
+    
+    int n;
+    printf("Enter number of students:");
+    scanf("%d",&n);
+    for(int k=1;k<=n;k++)
+    {
+    printf("For Student number %d ;",k);
+    printf("\nEnter name : ");
+    scanf("%s",e[k].na);
+    printf("Enter Roll number: ");
+    scanf(" %d",&e[k].rl);
+    for(int j=0;j<5;j++)
+    {
+        printf("Enter marks in Subject %d: ",j+1);
+        scanf("%d",&e[k].m[j]);
+        e[k].total+=e[k].m[j];
+    }
+    e[k].p=percent(e[k]);
+    }
+    int search;
+    printf("Enter Roll number to be searched: ");
+    scanf("%d",&search);
+    for(int i=0;i<n;i++)
+    {
+        if(e[i].rl==search)
+        dispdetail(e[i]);
+    }
+    givrange(n);
+    sortmarks(n);
+    printf("Sorted Marks:");
+    for(int g=0;g<n;g++)
+    {
+        printf("\n %d ,name=%s",e[g].total,e[g].na);
+    }
+}
